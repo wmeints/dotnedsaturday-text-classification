@@ -1,41 +1,58 @@
-# This script generates the scoring and schema files
-# necessary to operationalize your model
+import pickle
+import numpy as np
+
 from azureml.api.schema.dataTypes import DataTypes
 from azureml.api.schema.sampleDefinition import SampleDefinition
 from azureml.api.realtime.services import generate_schema
-from azureml.assets import get_local_path
+
+from keras.models import load_model
+from keras.preprocessing.sequence import pad_sequences
 
 # Prepare the web service definition by authoring
 # init() and run() functions. Test the functions
 # before deploying the web service.
 
 model = None
+tokenizer = None
+metadata = None
+
 
 def init():
-    # Get the path to the model asset
-    # local_path = get_local_path('mymodel.model.link')
-    
-    # Load model using appropriate library and function
-    global model
-    # model = model_load_function(local_path)
-    model = 42
+    # Model and tokenizer are stored globally.
+    global model, tokenizer, metadata
 
-def run(input_df):
+    # Load the keras model from disk
+    model = load_model('model.h5')
+
+    # Load the tokenizer from disk
+    with open('tokenizer.pkl', 'rb') as tokenizer_file:
+        tokenizer = pickle.load(tokenizer_file)
+
+    with open('metadata.pkl', 'rb') as metadata_file:
+        metadata = pickle.load(metadata_file)
+
+
+def run(text):
     import json
-    
-    # Predict using appropriate functions
-    # prediction = model.predict(input_df)
 
-    prediction = "%s %d" % (str(input_df), model)
-    return json.dumps(str(prediction))
+    input_sequence = tokenizer.texts_to_sequences([text])
+    input_sequence = pad_sequences(input_sequence, metadata['sequence_length'])
+
+    prediction = model.predict(input_sequence)
+
+    intent_mapping = metadata['intents']
+
+    return json.dumps({ 'intent': intent_mapping[int(np.argmax(prediction))] })
+
 
 def generate_api_schema():
     import os
     print("create schema")
     sample_input = "sample data text"
-    inputs = {"input_df": SampleDefinition(DataTypes.STANDARD, sample_input)}
+    inputs = {"text": SampleDefinition(DataTypes.STANDARD, sample_input)}
     os.makedirs('outputs', exist_ok=True)
     print(generate_schema(inputs=inputs, filepath="outputs/schema.json", run_func=run))
+
 
 # Implement test code to run in IDE or Azure ML Workbench
 if __name__ == '__main__':
@@ -54,6 +71,8 @@ if __name__ == '__main__':
         generate_api_schema()
 
     init()
-    input = "{}"
+
+    input = "Play a beatles song"
     result = run(input)
-    logger.log("Result",result)
+
+    logger.log("Result", result)
