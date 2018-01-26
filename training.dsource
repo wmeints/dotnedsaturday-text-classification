@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 39,
+  "id": "cd88b7d3-3d76-4a0a-8723-337791936959",
+  "activities": [
+    {
+      "id": "068dd5ba-7051-455e-94f6-aa2014c1348b",
+      "name": "training",
+      "blocks": [
+        {
+          "id": "6ecef5ba-58dd-47f0-962c-03b1d6ce249d",
+          "type": "Microsoft.DPrep.DataSourceBlock",
+          "arguments": {
+            "path": {
+              "target": 0,
+              "resourceDetails": [
+                {
+                  "path": "/Users/willemmeints/Projects/rnn-text-classification/training.csv"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "0249aa6c-ba03-4f70-af32-6541d82df804",
+          "type": "Microsoft.DPrep.ParseDelimitedBlock",
+          "arguments": {
+            "preview": false,
+            "columnHeadersMode": 1,
+            "separator": ",",
+            "fileEncoding": 0,
+            "skipRowsMode": 0,
+            "handleQuotedLineBreaks": false
+          }
+        },
+        {
+          "id": "33633699-2da4-4de5-9c0f-f5689eb8bb17",
+          "type": "Microsoft.DPrep.SetColumnTypesBlock",
+          "arguments": {
+            "columnConversion": []
+          }
+        },
+        {
+          "id": "61ab6481-58a4-4d27-8734-cff71321ff5b",
+          "type": "Microsoft.DPrep.SampleBlock",
+          "arguments": {
+            "samples": [
+              {
+                "sampleId": "4895a431-d343-4dc9-a85e-7a7a84215436",
+                "sampleRevision": "c3badd0e-9387-497f-9d0d-3da0c6259b9b",
+                "sampleName": "Full File",
+                "sampleRunner": {
+                  "id": null,
+                  "type": 0
+                },
+                "remoteGeneratorProperties": {},
+                "sampleStrategy": 3,
+                "topArguments": {
+                  "sampleCount": 10000
+                },
+                "randomNArguments": {
+                  "sampleCount": 10000
+                },
+                "randomPercentArguments": {
+                  "probability": 0.1
+                },
+                "allowAutoGen": true,
+                "isDisabled": false
+              },
+              {
+                "sampleId": "eaadfe0b-eccc-442b-b59a-cb507d52d384",
+                "sampleRevision": "eae02eb5-5a5d-4782-b2ef-2614b6679eee",
+                "sampleName": "Random 20%",
+                "sampleRunner": {
+                  "id": null,
+                  "type": 0
+                },
+                "remoteGeneratorProperties": {},
+                "sampleStrategy": 2,
+                "topArguments": {
+                  "sampleCount": 10000
+                },
+                "randomNArguments": {
+                  "sampleCount": 10000
+                },
+                "randomPercentArguments": {
+                  "probability": 0.2,
+                  "seed": 3295750603
+                },
+                "allowAutoGen": true,
+                "isDisabled": false
+              },
+              {
+                "sampleId": "5e6eef01-a3b3-4401-aef4-b3cb9e1bc6ce",
+                "sampleRevision": "08f35a0a-6fc2-476c-8b09-82e1273bb102",
+                "sampleName": "Random 80%",
+                "sampleRunner": {
+                  "id": null,
+                  "type": 0
+                },
+                "remoteGeneratorProperties": {},
+                "sampleStrategy": 2,
+                "topArguments": {
+                  "sampleCount": 10000
+                },
+                "randomNArguments": {
+                  "sampleCount": 10000
+                },
+                "randomPercentArguments": {
+                  "probability": 0.8,
+                  "seed": 2685256898
+                },
+                "allowAutoGen": true,
+                "isDisabled": false
+              }
+            ],
+            "activeSample": "4895a431-d343-4dc9-a85e-7a7a84215436"
+          }
+        },
+        {
+          "id": "8edaf261-8d96-4b3f-96ff-0ff4143eeba8",
+          "type": "Microsoft.DPrep.HandlePathColumnBlock",
+          "arguments": {
+            "pathColumnOperation": 0
+          }
+        }
+      ],
+      "inspectors": [
+        {
+          "id": "74cddfb4-b804-4356-9941-efbbdc281222",
+          "type": "Microsoft.DPrep.DataQualityInspector",
+          "arguments": {},
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "068dd5ba-7051-455e-94f6-aa2014c1348b",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": false
+        }
+      ]
+    }
+  ],
+  "runConfigurations": []
+}

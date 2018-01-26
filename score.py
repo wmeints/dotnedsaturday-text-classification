@@ -45,6 +45,7 @@ if __name__ == '__main__':
     logger = get_azureml_logger()
 
     import argparse
+
     parser = argparse.ArgumentParser()
     parser.add_argument('--generate', action='store_true', help='Generate Schema')
     args = parser.parse_args()

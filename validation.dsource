@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 39,
+  "id": "c2e7ce53-661f-4c9b-b8ba-2a08b3551d6f",
+  "activities": [
+    {
+      "id": "ebd77663-4aa1-4615-ac22-bfbfda120dc4",
+      "name": "validation",
+      "blocks": [
+        {
+          "id": "a87c63a7-8a6e-4c5c-a531-e8490b391786",
+          "type": "Microsoft.DPrep.DataSourceBlock",
+          "arguments": {
+            "path": {
+              "target": 0,
+              "resourceDetails": [
+                {
+                  "path": "/Users/willemmeints/Projects/rnn-text-classification/validation.csv"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "321b18fb-8803-4de5-b91f-4fd1fe2f7a23",
+          "type": "Microsoft.DPrep.ParseDelimitedBlock",
+          "arguments": {
+            "preview": false,
+            "columnHeadersMode": 1,
+            "separator": ",",
+            "fileEncoding": 0,
+            "skipRowsMode": 0,
+            "handleQuotedLineBreaks": false
+          }
+        },
+        {
+          "id": "2b4e6c21-d4dc-4748-8ddb-c5a1650129ba",
+          "type": "Microsoft.DPrep.SetColumnTypesBlock",
+          "arguments": {
+            "columnConversion": []
+          }
+        },
+        {
+          "id": "885330a9-c848-43e1-b896-1cce43b36525",
+          "type": "Microsoft.DPrep.SampleBlock",
+          "arguments": {
+            "samples": [
+              {
+                "sampleId": "3301e136-ce60-452e-8c53-4fdc15d06235",
+                "sampleRevision": "0fa7311e-0ad3-434e-9771-427a3e094b78",
+                "sampleName": "Full File",
+                "sampleRunner": {
+                  "id": null,
+                  "type": 0
+                },
+                "remoteGeneratorProperties": {},
+                "sampleStrategy": 3,
+                "topArguments": {
+                  "sampleCount": 10000
+                },
+                "randomNArguments": {
+                  "sampleCount": 10000
+                },
+                "randomPercentArguments": {
+                  "probability": 0.1
+                },
+                "allowAutoGen": true,
+                "isDisabled": false
+              }
+            ],
+            "activeSample": "3301e136-ce60-452e-8c53-4fdc15d06235"
+          }
+        },
+        {
+          "id": "30163b9e-0cb1-4a5b-8e89-01d2288a1df0",
+          "type": "Microsoft.DPrep.HandlePathColumnBlock",
+          "arguments": {
+            "pathColumnOperation": 0
+          }
+        }
+      ],
+      "inspectors": [
+        {
+          "id": "97f05f5e-589c-46ff-aa22-c05b4441ed40",
+          "type": "Microsoft.DPrep.DataQualityInspector",
+          "arguments": {},
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "ebd77663-4aa1-4615-ac22-bfbfda120dc4",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": false
+        }
+      ]
+    }
+  ],
+  "runConfigurations": []
+}
