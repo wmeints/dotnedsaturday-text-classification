@@ -9,7 +9,7 @@ type: "local"
 # You can change this to point at any python environment on your system,
 # including virtual environments and Conda environments. Note that backslashes
 # need to be escaped in this path, so it's easier to use forward slashes.
-pythonLocation: "/Users/willemmeints/anaconda/envs/project_environment/bin/python"
+pythonLocation: "python"
 
 # The $AZUREML_NATIVE_SHARE_DIRECTORY environment variable inside runs points
 # at a persistent directory that is shared between all runs of the same project
