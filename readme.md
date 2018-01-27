@@ -1,8 +1,8 @@
 # Getting Started
 
-Welcome to your new Azure Machine Learning Project.
+Welcome to the dotnedsaturday AI session demo code.
 
-For more information go to <http://aka.ms/AzureMLGettingStarted>
+For more information on Azure Machine Learning go to <http://aka.ms/AzureMLGettingStarted>
 
 Configure your favorite IDE and open this project using the **File menu**.
 
